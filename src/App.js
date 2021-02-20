@@ -1,25 +1,50 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from "react";
+
+import ContactList from "./ContactList";
+
+class App extends Component {
+  state = {
+    contacts: [
+      {
+        id: "karen",
+        name: "Karen Isgrigg",
+        handle: "karen_isgrigg",
+        avatarURL: "http://localhost:5001/karen.jpg",
+      },
+      {
+        id: "richard",
+        name: "Richard Kalehoff",
+        handle: "richardkalehoff",
+        avatarURL: "http://localhost:5001/richard.jpg",
+      },
+      {
+        id: "tyler",
+        name: "Tyler McGinnis",
+        handle: "tylermcginnis",
+        avatarURL: "http://localhost:5001/tyler.jpg",
+      },
+    ],
+  };
+
+  removeContact = (contact) => {
+    this.setState((currentState) => ({
+      contacts: currentState.contacts.filter((c) => {
+        return c.id !== contact.id;
+      }),
+    }));
+  };
+  render() {
+    return (
+      <div className="App">
+        <ContactList
+          contacts={this.state.contacts}
+          onDeleteContact={this.removeContact}
+        />
+      </div>
+    );
+  }
 }
 
 export default App;
